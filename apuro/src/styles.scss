@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --text-grey: #8C8C8C;
+    --light-grey: #D9D9D9;
+    --extra-light-grey: #F4F7F9;
+    --dark-grey: #626262;
+    -extra-dark-grey: #333333;
+
+    --blue: #0891F2;
+    --system-blue: #0891F2;
+
+    --green: #2CCAA9;
+    --light-green: #EAFAF6;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+p {
+    color: --var(--text-grey);
+}
