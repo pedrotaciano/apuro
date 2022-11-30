@@ -6,22 +6,27 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-student.component.scss'],
 })
 export class HomeStudentComponent implements OnInit {
-  id: number;
-  name: string;
-  date: string;
-  time: string;
-  duration: number;
-  subjectCode: string;
-  status: boolean;
-  constructor() {
-    this.id = 1;
-    this.name = 'Gestão de Projetos P1';
-    this.date = '2022-10-10';
-    this.time = '10:00';
-    this.duration = 2;
-    this.subjectCode = 'ACH2022';
-    this.status = false;
-  }
+  exams = [
+    {
+      id: 1,
+      name: 'Gestão de Projetos P1',
+      date: '2022-10-10',
+      time: '12:00',
+      duration: '1',
+      subjectCode: 'ACH2022',
+      Status: 'STARTED',
+    },
+    {
+      id: 2,
+      name: 'Gestão de Projetos P2',
+      date: '2022-10-10',
+      time: '12:00',
+      duration: '1',
+      subjectCode: 'ACH2022',
+      Status: 'STARTED',
+    },
+  ];
+  constructor() {}
 
   ngOnInit(): void {}
 }
