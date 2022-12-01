@@ -1,0 +1,32 @@
+{
+    "id": "int",
+    "name": "string",
+    "subject": "string",
+    "teacher_id": "int",
+    "start_datetime": "datetime",
+    "end_datetime": "datetime",
+    "questions": [
+        {
+            "id": "int",
+            "text": "string",
+            "correct_alternative_id": "int",
+            "alternatives": [
+                {
+                    "id": "int",
+                    "text": "string"
+                }
+            ]
+        }
+    ],
+    "studentResponses": [
+        {
+            "student_id": "int",
+            "questions_answers": [
+                {
+                    "question_id": "int",
+                    "selected_alternative_id": "int"
+                }
+            ]
+        }
+    ]
+}
