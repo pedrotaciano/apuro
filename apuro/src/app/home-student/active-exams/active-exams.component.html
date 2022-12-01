@@ -1,12 +1,13 @@
-<div class="pt-12">
+<div class="pt-12 container">
   <h1 class="text-2xl font-bold pb-6">Active Exams</h1>
-  <div class="flex justify-center">
+  <div class="flex grid-cols-4">
     <div *ngFor="let exam of exams">
       <app-exam-card
         [id]="exam.id"
         [subjectCode]="exam.subjectCode"
         [name]="exam.name"
         [ctaText]="getRemainingExamTimeInMilliseconds(exam)"
+        [routerLink]="['/exam', exam.id]"
       >
       </app-exam-card>
     </div>

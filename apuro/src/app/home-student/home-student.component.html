@@ -1,11 +1,12 @@
-<div class="pt-12">
-  <h1 class="text-2xl font-bold pb-6">Próximas Provas</h1>
-  <div class="flex justify-center">
+<div class="pt-12 container">
+  <h1 class="text-2xl font-bold pb-6">Incoming Exams</h1>
+  <div class="flex grid-cols-4">
     <div class="grid-cols-4" *ngFor="let exam of exams">
       <app-exam-card
         [subjectCode]="exam.subjectCode"
         [name]="exam.name"
-        [ctaText]="'Ver mais'"
+        [ctaText]="'See more'"
+        [routerLink]="['/exam-details', exam.id]"
         class="max-w-md"
       >
       </app-exam-card>

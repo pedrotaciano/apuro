@@ -1,22 +1,39 @@
 <div class="flex w-screen h-screen overflow-hidden">
-    <div class="w-1/2 h-screen bg-center">
-        <img src="../../assets/images/login.png" alt="women using computer" class="">
+  <div class="w-1/2 h-screen bg-center relative">
+    <img
+      src="../../assets/images/login.png"
+      alt="women using computer"
+      class=""
+    />
+    <img
+      class="absolute top-1/2 right-1/2"
+      src="../../assets/images/logo.svg"
+      alt="logo apuro"
+    />
+  </div>
+  <div class="flex flex-col justify-center items-center w-1/2 h-screen">
+    <div class="max-w-fit">
+      <div class="pb-8">
+        <h2 class="text-2xl font-bold pb-1">Login</h2>
+        <p class="text-md text-gray-500">
+          Por favor insira suas informações abaixo.
+        </p>
+      </div>
+      <div class="flex flex-col">
+        <mat-form-field appearance="fill" class="pb-4">
+          <mat-label>Enter your email</mat-label>
+          <input matInput placeholder="pat@example.com" required />
+          <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="pb-4">
+          <mat-label>Enter your password</mat-label>
+          <input matInput placeholder="Password" required />
+          <mat-error *ngIf="password.invalid">{{
+            getErrorMessage()
+          }}</mat-error>
+        </mat-form-field>
+        <button mat-flat-button color="primary" class="pt-8">Login</button>
+      </div>
     </div>
-    <div class="flex flex-col justify-center items-center w-1/2 h-screen">
-        <div class="max-w-fit">
-            <div class="pb-8">
-                <h2 class="text-2xl font-bold pb-1">Login</h2>
-                <p class="text-md">Por favor insira suas informações abaixo.</p>
-            </div>
-            <div class="flex flex-col">
-                <mat-form-field appearance="fill" class="pb-4">
-                    <mat-label>Enter your email</mat-label>
-                    <input matInput placeholder="pat@example.com" required>
-                    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-                </mat-form-field>
-                <input type="password">
-                <button mat-flat-button color="primary" class="pt-8">Login</button>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>

@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { ActiveExamsComponent } from './home-student/active-exams/active-exams.component';
 import { ExamComponent } from './home-student/components/exam/exam.component';
 import { HomeStudentComponent } from './home-student/home-student.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  { path: '', component: HomeStudentComponent },
-  { path: 'active-exams', component: ActiveExamsComponent },
-  { path: 'exam/:id', component: ExamComponent },
+  { path: '', component: LoginComponent },
+  { path: 'student/home', component: HomeStudentComponent },
+  { path: 'student/active-exams', component: ActiveExamsComponent },
+  { path: 'student/exam/:id', component: ExamComponent },
 ];
 
 @NgModule({

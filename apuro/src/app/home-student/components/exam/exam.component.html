@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="pt-12">
+  <div class="pt-12 container">
     <div class="flex items-center gap-4 pb-6">
-      <mat-icon class="cursor-pointer" [routerLink]="['/active-exams']"
+      <mat-icon class="cursor-pointer" [routerLink]="['/student/active-exams']"
         >arrow_back</mat-icon
       >
       <div class="flex gap-2">
@@ -11,7 +11,7 @@
         </h1>
       </div>
     </div>
-    <div class="flex justify-center text-gray-500 gap-8">
+    <div class="flex text-gray-500 gap-8">
       <div class="">
         <span class="font-medium">Start:</span>
         <span class="">
@@ -35,19 +35,27 @@
     </div>
 
     <div>
-      <!-- <div class="pt-12">
+      <div class="pt-6">
         <h1 class="text-2xl font-bold pb-6">Questions</h1>
-        <div class="flex justify-center">
-          <div *ngFor="let question of exam.questions">
-            <app-question-card
-              [id]="question.id"
-              [question]="question.question"
-              [answer]="question.answer"
-              [options]="question.options"
-            ></app-question-card>
+        <div class="flex">
+          <div *ngFor="let question of exam.questions; index as indexQuestion">
+            <div class="w-full border-gray-500">
+              <div>
+                <p class="font-medium text-base text-gray-500">
+                  Question {{ indexQuestion + 1 }}
+                </p>
+                <h2 class="text-xl font-bold">
+                  {{ question.text }}
+                </h2>
+                <ng-container *ngFor="let alternative of question.alternatives">
+                  {{ alternative.id }}
+                  {{ alternative.text }}
+                </ng-container>
+              </div>
+            </div>
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 </div>

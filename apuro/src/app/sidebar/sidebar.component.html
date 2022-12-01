@@ -1,14 +1,18 @@
 <div
-  class="flex flex-col w-20 bg-black h-screen pl-4 pr-4 pt-12 pb-12 items-center justify-between mr-8"
+  class="flex flex-col w-20 bg-black h-screen pl-4 pr-4 pt-12 pb-12 items-center justify-between mr-10"
 >
   <div class="logo">
     <img src="../../assets/images/mini-logo.svg" alt="apuro logo" class="w-6" />
   </div>
   <div class="material-icons-outlined flex flex-col justify-center gap-4">
-    <button [routerLink]="['/']" mat-icon-button class="text-white">
+    <button [routerLink]="['/student/home']" mat-icon-button class="text-white">
       <mat-icon>home</mat-icon>
     </button>
-    <button [routerLink]="['/active-exams']" mat-icon-button class="text-white">
+    <button
+      [routerLink]="['/student/active-exams']"
+      mat-icon-button
+      class="text-white"
+    >
       <mat-icon>quiz</mat-icon>
     </button>
     <button mat-icon-button class="text-white">
