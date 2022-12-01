@@ -1,38 +1,66 @@
 <div class="flex w-screen h-screen overflow-hidden">
-  <div class="w-1/2 h-screen bg-center relative">
+  <div class="w-1/2 h-screen bg-center bg-cover">
     <img
       src="../../assets/images/login.png"
       alt="women using computer"
       class=""
     />
-    <img
-      class="absolute top-1/2 right-1/2"
-      src="../../assets/images/logo.svg"
-      alt="logo apuro"
-    />
+    <img class="" src="../../assets/images/logo.svg" alt="logo apuro" />
   </div>
   <div class="flex flex-col justify-center items-center w-1/2 h-screen">
     <div class="max-w-fit">
       <div class="pb-8">
         <h2 class="text-2xl font-bold pb-1">Login</h2>
         <p class="text-md text-gray-500">
-          Por favor insira suas informações abaixo.
+          Please, fill up your information below.
         </p>
       </div>
       <div class="flex flex-col">
-        <mat-form-field appearance="fill" class="pb-4">
-          <mat-label>Enter your email</mat-label>
-          <input matInput placeholder="pat@example.com" required />
-          <mat-error *ngIf="email.invalid">{{ getErrorMessage() }}</mat-error>
+        <form [formGroup]="loginForm"></form>
+        <mat-form-field appearance="fill" class="">
+          <mat-label>Username</mat-label>
+          <input
+            matInput
+            placeholder="Username"
+            required
+            formControlName="username"
+          />
+          <mat-error
+            *ngIf="
+              loginForm.controls['username'].dirty &&
+              loginForm.hasError('required', 'username')
+            "
+            >Username is required
+          </mat-error>
         </mat-form-field>
+
         <mat-form-field appearance="fill" class="pb-4">
-          <mat-label>Enter your password</mat-label>
-          <input matInput placeholder="Password" required />
-          <mat-error *ngIf="password.invalid">{{
-            getErrorMessage()
-          }}</mat-error>
+          <mat-label>Password</mat-label>
+          <input
+            type="password"
+            matInput
+            placeholder="Password"
+            required
+            formControlName="password"
+          />
+          <mat-error
+            *ngIf="
+              loginForm.controls['password'].dirty &&
+              loginForm.hasError('required', 'password')
+            "
+            >Password is required</mat-error
+          >
         </mat-form-field>
-        <button mat-flat-button color="primary" class="pt-8">Login</button>
+
+        <button
+          [disabled]="loginForm.invalid"
+          mat-flat-button
+          color="primary"
+          class="pt-8"
+          (click)="login()"
+        >
+          Login
+        </button>
       </div>
     </div>
   </div>

@@ -17,6 +17,8 @@ import { ExamCardComponent } from './home-student/components/exam-card/exam-card
 import { ActiveExamsComponent } from './home-student/active-exams/active-exams.component';
 import { ExamComponent } from './home-student/components/exam/exam.component';
 import { QuestionCardComponent } from './home-student/components/question-card/question-card.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { QuestionCardComponent } from './home-student/components/question-card/q
     MatButtonModule,
     MatCardModule,
     MatInputModule,
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

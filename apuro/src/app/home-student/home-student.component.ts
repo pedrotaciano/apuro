@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Exam } from '../model/exam';
 
 @Component({
   selector: 'app-home-student',
@@ -6,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-student.component.scss'],
 })
 export class HomeStudentComponent implements OnInit {
+  //exams: Exam[] = [];
   exams = [
     {
       id: 1,
@@ -25,7 +28,16 @@ export class HomeStudentComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadExams();
+  }
+
+  loadExams() {
+    this.http.get('http://localhost:5000/exams').subscribe((exams) => {
+      console.log(exams);
+      //this.exams = exams;
+    });
+  }
 }
