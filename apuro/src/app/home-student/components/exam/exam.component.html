@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="pt-12">
+    <div class="flex items-center gap-4 pb-6">
+      <mat-icon class="cursor-pointer" [routerLink]="['/active-exams']"
+        >arrow_back</mat-icon
+      >
+      <div class="flex gap-2">
+        <h1 class="text-2xl font-bold">{{ exam.name }}</h1>
+        <h1 class="text-2xl font-normal text-gray-500">
+          - {{ exam.subjectCode }}
+        </h1>
+      </div>
+    </div>
+    <div class="flex justify-center text-gray-500 gap-8">
+      <div class="">
+        <span class="font-medium">Start:</span>
+        <span class="">
+          {{ exam.startDateTime }}
+        </span>
+      </div>
+
+      <div class="">
+        <span class="font-medium">Remaining time:</span>
+        <span class="">
+          {{ getRemainingTime(exam) }}
+        </span>
+      </div>
+
+      <div class="">
+        <span class="font-medium">Questions:</span>
+        <span class="">
+          {{ exam.questions.length }}
+        </span>
+      </div>
+    </div>
+
+    <div>
+      <!-- <div class="pt-12">
+        <h1 class="text-2xl font-bold pb-6">Questions</h1>
+        <div class="flex justify-center">
+          <div *ngFor="let question of exam.questions">
+            <app-question-card
+              [id]="question.id"
+              [question]="question.question"
+              [answer]="question.answer"
+              [options]="question.options"
+            ></app-question-card>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>

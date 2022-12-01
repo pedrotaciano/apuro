@@ -1,12 +1,12 @@
 <div class="pt-12">
-  <h1 class="text-2xl font-bold pb-6">Próximas Provas</h1>
+  <h1 class="text-2xl font-bold pb-6">Active Exams</h1>
   <div class="flex justify-center">
-    <div class="grid-cols-4" *ngFor="let exam of exams">
+    <div *ngFor="let exam of exams">
       <app-exam-card
+        [id]="exam.id"
         [subjectCode]="exam.subjectCode"
         [name]="exam.name"
-        [ctaText]="'Ver mais'"
-        class="max-w-md"
+        [ctaText]="getRemainingExamTimeInMilliseconds(exam)"
       >
       </app-exam-card>
     </div>
