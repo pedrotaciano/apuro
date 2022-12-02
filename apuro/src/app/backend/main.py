@@ -59,11 +59,63 @@ def login():
             return Response(
                 response=json.dumps(
                     {"message": "Usuário logado com sucesso!",
+                    "username": username,
                     "login": True}),
                 status=200,
                 mimetype='application/json')
 
-        return Response("Usuário e/ou Senha inválidos!", status=400)
+        return Response(
+                response=json.dumps(
+                    {"message": "Credenceiais inválidas!",
+                    "username": username,
+                    "login": False}),
+                status=400,
+                mimetype='application/json')
+
+    except Exception as ex:
+        print(ex)
+
+
+@app.route('/exams/create', methods=['POST'])
+def exam_create():
+        
+    try:
+        content = request.json
+        exam_name = content['exam_name']
+        exam_subject = content['exam_subject']
+        exam_start = content['exam_start']
+        exam_end = content['exam_end']
+        exam_questions = content['exam_questions']        
+
+        exam = {"exam_name": exam_name,
+                "exam_subject": exam_subject,
+                "exam_start": exam_start,
+                "exam_end": exam_end,
+                "exam_questions": exam_questions}
+                # "exam_responses": exam_responses}
+
+        print(exam)
+        db.mongo("exams").insert_one(exam)
+
+        return Response(
+            response=json.dumps(
+                {"message": "Exame cadastrado com sucesso!",
+                "exam_name": exam_name}),
+            status=200,
+            mimetype='application/json')
+
+    except Exception as ex:
+        print(ex)
+
+
+@app.route('/exams/get', methods=['GET'])
+def exam_get():
+
+    try:
+        exam = list(db.mongo("exams").find({}, {"_id": 0}))
+        exam = json.dumps(exam)
+
+        return exam
 
     except Exception as ex:
         print(ex)
