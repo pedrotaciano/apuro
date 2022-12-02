@@ -16,48 +16,58 @@
         </p>
       </div>
       <div class="flex flex-col">
-        <form [formGroup]="loginForm"></form>
-        <mat-form-field appearance="fill" class="">
-          <mat-label>Username</mat-label>
-          <input
-            matInput
-            placeholder="Username"
-            required
-            formControlName="username"
-          />
-          <mat-error
-            *ngIf="
-              loginForm.controls['username'].dirty &&
-              loginForm.hasError('required', 'username')
-            "
-            >Username is required
-          </mat-error>
-        </mat-form-field>
+        <form [formGroup]="loginForm">
+          <mat-radio-group formControlName="role">
+            <mat-radio-button class="example-margin" value="student">
+              Student
+            </mat-radio-button>
+            <mat-radio-button class="example-margin" value="teacher">
+              Teacher
+            </mat-radio-button>
+          </mat-radio-group>
 
-        <mat-form-field appearance="fill" class="pb-4">
-          <mat-label>Password</mat-label>
-          <input
-            type="password"
-            matInput
-            placeholder="Password"
-            required
-            formControlName="password"
-          />
-          <mat-error
-            *ngIf="
-              loginForm.controls['password'].dirty &&
-              loginForm.hasError('required', 'password')
-            "
-            >Password is required</mat-error
-          >
-        </mat-form-field>
+          <mat-form-field appearance="fill" class="">
+            <mat-label>Username</mat-label>
+            <input
+              matInput
+              placeholder="Username"
+              required
+              formControlName="username"
+            />
+            <mat-error
+              *ngIf="
+                loginForm.controls['username'].dirty &&
+                loginForm.hasError('required', 'username')
+              "
+              >Username is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="pb-4">
+            <mat-label>Password</mat-label>
+            <input
+              type="password"
+              matInput
+              placeholder="Password"
+              required
+              formControlName="password"
+            />
+            <mat-error
+              *ngIf="
+                loginForm.controls['password'].dirty &&
+                loginForm.hasError('required', 'password')
+              "
+              >Password is required</mat-error
+            >
+          </mat-form-field>
+        </form>
 
         <button
           [disabled]="loginForm.invalid"
           mat-flat-button
           color="primary"
           class="pt-8"
-          (click)="login(username, password)"
+          (click)="login()"
         >
           Login
         </button>

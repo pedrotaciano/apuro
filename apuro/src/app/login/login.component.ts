@@ -8,8 +8,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
-import { User } from '../model/user';
-import { Credentials } from '../model/credentials';
+import { User, Credentials } from '../model/user';
 
 @Component({
   selector: 'app-login',
@@ -18,11 +17,17 @@ import { Credentials } from '../model/credentials';
 })
 export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
-  userLoggedIn!: User;
+  userLoggedIn: User = {
+    credentials: {
+      username: 'invalid',
+      password: 'invalid',
+    },
+    userId: -1,
+    role: 'invalid',
+  };
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient,
     private router: Router,
     private userServices: UserService
   ) {}
@@ -31,28 +36,25 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
+      role: ['', Validators.required],
     });
   }
 
-  // getErrorMessage() {
-  //   if (this.email.hasError('required')) {
-  //     return 'You must enter your email';
-  //   }
-  //   if (this.password.hasError('required')) {
-  //     return 'You must enter a password';
-  //   }
-
-  //   return this.email.hasError('email') ? 'Not a valid email' : '';
-  // }
-
-  login(username: string, password: string) {
+  login() {
     let credentials: Credentials = {
-      username: username,
-      password: password,
+      username: this.loginForm.controls['username'].value,
+      password: this.loginForm.controls['password'].value,
     };
+    let role = this.loginForm.controls['role'].value;
 
-    this.userServices.validateLogin(credentials);
-    this.userServices.getUserProfile(credentials);
+    console.log('credentials:', credentials);
+
+    if (this.userServices.validateLogin(credentials)) {
+      this.router.navigate(['/home/' + role]);
+    }
+
+    this.userLoggedIn.credentials = credentials;
+    this.userLoggedIn.role = role;
     this.userServices.setUserLoggedIn(this.userLoggedIn);
   }
 }

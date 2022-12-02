@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { User } from './model/user';
+import { Credentials, User } from './model/user';
 import { HttpClient } from '@angular/common/http';
-import { Credentials } from './model/credentials';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +15,6 @@ export class UserService {
   }
 
   validateLogin(credentials: Credentials) {
-    return this.http.get('http://localhost:5000/user/login');
+    return this.http.post('http://localhost:5000/user/login', credentials);
   }
 }

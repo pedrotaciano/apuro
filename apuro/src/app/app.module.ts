@@ -18,7 +18,7 @@ import { ActiveExamsComponent } from './home-student/active-exams/active-exams.c
 import { ExamComponent } from './home-student/components/exam/exam.component';
 import { QuestionCardComponent } from './home-student/components/question-card/question-card.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
@@ -44,6 +44,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatInputModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     MatRadioModule,
   ],
   providers: [],

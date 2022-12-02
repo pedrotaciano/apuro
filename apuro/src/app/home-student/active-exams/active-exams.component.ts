@@ -14,7 +14,7 @@ export class ActiveExamsComponent implements OnInit {
   constructor(public router: Router, private examService: ExamService) {}
 
   getStartedExams() {
-    this.exams = this.examService.getExams();
+    this.exams = this.examService.exams;
     this.exams = this.exams.filter((exam) => exam.status === '1');
   }
 

@@ -1,5 +1,3 @@
-import { Question } from './question';
-
 export interface Exam {
   id: number;
   name: string;
@@ -8,4 +6,20 @@ export interface Exam {
   endDateTime: string;
   status: string;
   questions: Question[];
+}
+
+export interface Question {
+  id: number;
+  text: string;
+  alternatives: Alternative[];
+}
+
+export interface Alternative {
+  id: number;
+  text: string;
+}
+
+export interface QuestionResponse {
+  questionId: number;
+  selectedAlternativeId: any;
 }
