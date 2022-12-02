@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="pt-12 container">
+    <div class="flex items-center gap-4 pb-6">
+      <mat-icon class="cursor-pointer" [routerLink]="['/student/active-exams']"
+        >arrow_back</mat-icon
+      >
+      <div class="flex gap-2">
+        <h1 class="text-2xl font-bold">{{ exam.name }}</h1>
+        <h1 class="text-2xl font-normal text-gray-500">
+          - {{ exam.subjectCode }}
+        </h1>
+      </div>
+    </div>
+    <div class="flex text-gray-500 gap-8">
+      <div class="">
+        <span class="font-medium">Start:</span>
+        <span class="">
+          {{ exam.startDateTime }}
+        </span>
+      </div>
+
+      <div class="">
+        <span class="font-medium">Remaining time:</span>
+        <span class="">
+          {{ getRemainingTime(exam) }}
+        </span>
+      </div>
+
+      <div class="">
+        <span class="font-medium">Questions:</span>
+        <span class="">
+          {{ exam.questions.length }}
+        </span>
+      </div>
+    </div>
+
+    <div class="pb-10 pt-6">
+      <div *ngFor="let question of exam.questions">
+        <div class="w-full border-gray-500">
+          <div>
+            <p class="font-medium text-base text-gray-500">
+              Question {{ question.id + 1 }}
+            </p>
+            <h2 class="text-xl font-bold mb-4">
+              {{ question.text }}
+            </h2>
+            <form
+              #examForm="ngForm"
+              (ngSubmit)="submitExam(examForm)"
+              class="grid gap-6 mb-6"
+            >
+              <mat-radio-group
+                class="flex flex-col gap-2"
+                aria-label="Select an option"
+              >
+                <mat-radio-button
+                  *ngFor="let alternative of question.alternatives"
+                  name="alternative"
+                  [value]="alternative.id"
+                  [(ngModel)]="selectedAlternativeId"
+                  formControlName="selectedAlternative"
+                >
+                  {{ alternative.text }}
+                </mat-radio-button>
+              </mat-radio-group>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <button mat-flat-button color="primary" type="submit">Submit Exam</button>
+    </div>
+  </div>
+</div>
