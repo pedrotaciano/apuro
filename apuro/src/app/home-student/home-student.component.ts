@@ -1,4 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ExamService } from '../exam.service';
+import { Exam } from '../model/exam';
 
 @Component({
   selector: 'app-home-student',
@@ -6,27 +10,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-student.component.scss'],
 })
 export class HomeStudentComponent implements OnInit {
-  exams = [
-    {
-      id: 1,
-      name: 'Gestão de Projetos P1',
-      date: '2022-10-10',
-      time: '12:00',
-      duration: '1',
-      subjectCode: 'ACH2022',
-      Status: 'STARTED',
-    },
-    {
-      id: 2,
-      name: 'Gestão de Projetos P2',
-      date: '2022-10-10',
-      time: '12:00',
-      duration: '1',
-      subjectCode: 'ACH2022',
-      Status: 'STARTED',
-    },
-  ];
-  constructor() {}
+  exams: Exam[] = [];
 
-  ngOnInit(): void {}
+  constructor(public router: Router, private examService: ExamService) {}
+
+  ngOnInit(): void {
+    this.getNonStartedExams();
+  }
+
+  getNonStartedExams() {
+    this.examService.getExams();
+    this.exams = this.exams.filter((exam) => exam.status === '0');
+  }
 }

@@ -1,22 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Exam } from '../model/exam';
+import { Exam } from './model/exam';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExamService {
+  exams: Exam[] = [];
+
   constructor(private http: HttpClient) {}
 
   getExamById(id: number) {
-    this.getExams().subscribe((exams) => {
-      return exams.find((exam) => exam.examId === id);
-    });
+    return this.exams.find((exam) => exam.id === id);
   }
 
-  getExams() {
-    return this.http.get<Exam[]>('http://localhost:5000/exams/get');
+  getExams(): void {
+    this.http.get('http://localhost:5000/exams/get').subscribe((exams: any) => {
+      this.exams = exams;
+    });
   }
 
   submitExam(form: any) {

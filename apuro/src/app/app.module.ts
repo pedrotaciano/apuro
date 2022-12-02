@@ -13,7 +13,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { CardComponent } from './home-student/card/card.component';
+import { ExamCardComponent } from './home-student/components/exam-card/exam-card.component';
+import { ActiveExamsComponent } from './home-student/active-exams/active-exams.component';
+import { ExamComponent } from './home-student/components/exam/exam.component';
+import { QuestionCardComponent } from './home-student/components/question-card/question-card.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -22,7 +28,10 @@ import { CardComponent } from './home-student/card/card.component';
     HomeStudentComponent,
     HomeTeacherComponent,
     LoginComponent,
-    CardComponent,
+    ExamCardComponent,
+    ActiveExamsComponent,
+    ExamComponent,
+    QuestionCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +42,10 @@ import { CardComponent } from './home-student/card/card.component';
     MatButtonModule,
     MatCardModule,
     MatInputModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatRadioModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

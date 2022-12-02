@@ -1,5 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from '../user.service';
+import { User, Credentials } from '../model/user';
 
 @Component({
   selector: 'app-login',
@@ -7,17 +16,45 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor() {}
+  public loginForm!: FormGroup;
+  userLoggedIn: User = {
+    credentials: {
+      username: 'invalid',
+      password: 'invalid',
+    },
+    userId: -1,
+    role: 'invalid',
+  };
 
-  ngOnInit(): void {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private userServices: UserService
+  ) {}
 
-  email = new FormControl('', [Validators.required, Validators.email]);
+  ngOnInit(): void {
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      role: ['', Validators.required],
+    });
+  }
 
-  getErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'You must enter a value';
+  login() {
+    let credentials: Credentials = {
+      username: this.loginForm.controls['username'].value,
+      password: this.loginForm.controls['password'].value,
+    };
+    let role = this.loginForm.controls['role'].value;
+
+    console.log('credentials:', credentials);
+
+    if (this.userServices.validateLogin(credentials)) {
+      this.router.navigate(['/home/' + role]);
     }
 
-    return this.email.hasError('email') ? 'Not a valid email' : '';
+    this.userLoggedIn.credentials = credentials;
+    this.userLoggedIn.role = role;
+    this.userServices.setUserLoggedIn(this.userLoggedIn);
   }
 }
