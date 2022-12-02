@@ -7,6 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from '../user.service';
+import { User } from '../model/user';
+import { Credentials } from '../model/credentials';
 
 @Component({
   selector: 'app-login',
@@ -15,11 +18,13 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
+  userLoggedIn!: User;
 
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private userServices: UserService
   ) {}
 
   ngOnInit(): void {
@@ -40,22 +45,14 @@ export class LoginComponent implements OnInit {
   //   return this.email.hasError('email') ? 'Not a valid email' : '';
   // }
 
-  login() {
-    if (this.validateLogin()) {
-      this.router.navigate(['/home-student']);
-    } else {
-      alert('Login inválido');
-    }
-  }
+  login(username: string, password: string) {
+    let credentials: Credentials = {
+      username: username,
+      password: password,
+    };
 
-  validateLogin() {
-    return this.http
-      .post('http://localhost:5000/user/login', {
-        username: this.loginForm.get(['username'])!.value,
-        password: this.loginForm.get(['password'])!.value,
-      })
-      .subscribe((data) => {
-        return data;
-      });
+    this.userServices.validateLogin(credentials);
+    this.userServices.getUserProfile(credentials);
+    this.userServices.setUserLoggedIn(this.userLoggedIn);
   }
 }

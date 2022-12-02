@@ -7,7 +7,7 @@
         [subjectCode]="exam.subjectCode"
         [name]="exam.name"
         [ctaText]="getRemainingExamTimeInMilliseconds(exam)"
-        [routerLink]="['/exam', exam.id]"
+        [routerLink]="['/student/exam/' + exam.id]"
       >
       </app-exam-card>
     </div>

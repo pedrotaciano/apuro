@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ExamService } from 'src/app/exam.service';
+import { Exam } from 'src/app/model/exam';
 
 @Component({
   selector: 'app-active-exams',
@@ -7,24 +9,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./active-exams.component.scss'],
 })
 export class ActiveExamsComponent implements OnInit {
-  exams = [
-    {
-      id: 1,
-      name: 'Gestão de Projetos P1',
-      subjectCode: 'ACH2022',
-      startDateTime: '2022-12-10T13:00:00.000Z',
-      endDateTime: '2022-12-10T22:00:00.000Z',
-      status: '0',
-    },
-    {
-      id: 2,
-      name: 'Gestão de Projetos P2',
-      subjectCode: 'ACH2022',
-      startDateTime: '2022-12-10T13:00:00.000Z',
-      endDateTime: '2022-12-10T22:00:00.000Z',
-      status: '1',
-    },
-  ];
+  exams: Exam[] = [];
+
+  constructor(public router: Router, private examService: ExamService) {}
+
+  getStartedExams() {
+    this.exams = this.examService.getExams();
+    this.exams = this.exams.filter((exam) => exam.status === '1');
+  }
 
   getRemainingExamTimeInMilliseconds(exam: any): string {
     const now = new Date();
@@ -33,7 +25,7 @@ export class ActiveExamsComponent implements OnInit {
     return remainingTime.toString();
   }
 
-  constructor(public router: Router) {}
-
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getStartedExams();
+  }
 }

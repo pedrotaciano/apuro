@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ExamService } from 'src/app/exam.service';
 import { Exam } from 'src/app/model/exam';
 
 @Component({
@@ -7,48 +10,33 @@ import { Exam } from 'src/app/model/exam';
   styleUrls: ['./exam.component.scss'],
 })
 export class ExamComponent implements OnInit {
+  id!: any;
   exam!: Exam;
+  examForm!: FormGroup;
 
-  constructor() {}
+  constructor(
+    private examService: ExamService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.exam = {
-      id: 1,
-      name: 'Gestão de Projetos P1',
-      subjectCode: 'ACH2022',
-      startDateTime: '2022-12-10T13:00:00.000Z',
-      endDateTime: '2022-12-10T22:00:00.000Z',
-      status: '0',
-      questions: [
-        {
-          id: 1,
-          text: 'Qual a capital do Brasil?',
-          alternatives: [
-            {
-              id: 1,
-              text: 'São Paulo',
-            },
-            {
-              id: 2,
-              text: 'Rio de Janeiro',
-            },
-            {
-              id: 3,
-              text: 'Brasília',
-            },
-            {
-              id: 4,
-              text: 'Salvador',
-            },
-          ],
-        },
-      ],
-    };
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.id = params.get('id');
+    });
+    this.getExamById(parseInt(this.id!));
+  }
+
+  submitExam(examForm: FormGroup) {
+    console.log(examForm);
+  }
+
+  getExamById(id: number): Exam {
+    return (this.exam = this.examService.getExamById(id));
   }
 
   getRemainingTime(exam: Exam): number {
     const now = new Date();
-    const endDateTime = new Date(exam.endDateTime);
+    const endDateTime = new Date(exam!.endDateTime);
     const remainingTime = endDateTime.getTime() - now.getTime();
     return remainingTime;
   }

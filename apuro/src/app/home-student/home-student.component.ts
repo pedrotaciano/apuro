@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ExamService } from '../exam.service';
 import { Exam } from '../model/exam';
 
 @Component({
@@ -8,36 +10,16 @@ import { Exam } from '../model/exam';
   styleUrls: ['./home-student.component.scss'],
 })
 export class HomeStudentComponent implements OnInit {
-  //exams: Exam[] = [];
-  exams = [
-    {
-      id: 1,
-      name: 'Gestão de Projetos P1',
-      subjectCode: 'ACH2022',
-      startDateTime: '2022-12-10T13:00:00.000Z',
-      endDateTime: '2022-12-10T22:00:00.000Z',
-      status: '0',
-    },
-    {
-      id: 2,
-      name: 'Gestão de Projetos P2',
-      subjectCode: 'ACH2022',
-      startDateTime: '2022-12-10T13:00:00.000Z',
-      endDateTime: '2022-12-10T22:00:00.000Z',
-      status: '1',
-    },
-  ];
+  exams: Exam[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(public router: Router, private examService: ExamService) {}
 
   ngOnInit(): void {
-    this.loadExams();
+    this.getNonStartedExams();
   }
 
-  loadExams() {
-    this.http.get('http://localhost:5000/exams').subscribe((exams) => {
-      console.log(exams);
-      //this.exams = exams;
-    });
+  getNonStartedExams() {
+    this.exams = this.examService.getExams();
+    this.exams = this.exams.filter((exam) => exam.status === '0');
   }
 }

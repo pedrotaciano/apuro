@@ -13,12 +13,5 @@ export class AppComponent {
 
   constructor(private _router: Router, private http: HttpClient) {
     this.router = _router.url;
-    this.loadExams();
-  }
-
-  loadExams() {
-    this.http.get('http://localhost:5000/exams').subscribe((data) => {
-      console.log(data);
-    });
   }
 }
