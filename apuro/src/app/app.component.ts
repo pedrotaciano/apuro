@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -8,10 +7,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'apuro';
+  title = 'Apuro';
   router: string;
 
-  constructor(private _router: Router, private http: HttpClient) {
+  constructor(private _router: Router) {
     this.router = _router.url;
   }
 }

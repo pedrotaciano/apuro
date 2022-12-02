@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
     console.log('credentials:', credentials);
 
     if (this.userServices.validateLogin(credentials)) {
-      this.router.navigate(['/home/' + role]);
+      this.router.navigate([role + '/home/']);
     }
 
     this.userLoggedIn.credentials = credentials;
