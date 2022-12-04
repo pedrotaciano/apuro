@@ -17,14 +17,16 @@
       </div>
       <div class="flex flex-col">
         <form [formGroup]="loginForm">
-          <mat-radio-group formControlName="role">
-            <mat-radio-button class="example-margin" value="student">
-              Student
-            </mat-radio-button>
-            <mat-radio-button class="example-margin" value="teacher">
-              Teacher
-            </mat-radio-button>
-          </mat-radio-group>
+          <div class="mb-6">
+            <mat-radio-group formControlName="role">
+              <mat-radio-button class="mr-6" value="student">
+                Student
+              </mat-radio-button>
+              <mat-radio-button class="example-margin" value="teacher">
+                Teacher
+              </mat-radio-button>
+            </mat-radio-group>
+          </div>
 
           <mat-form-field appearance="fill" class="">
             <mat-label>Username</mat-label>
