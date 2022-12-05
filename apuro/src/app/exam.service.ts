@@ -7,18 +7,20 @@ import { Exam } from './model/exam';
   providedIn: 'root',
 })
 export class ExamService {
-  exams: Exam[] = [];
+  exams: Exam[] = this.getExams();
 
   constructor(private http: HttpClient) {}
 
-  getExamById(id: number) {
-    return this.exams.find((exam) => exam.id === id);
+  getExamByName(name: string) {
+    return this.getExams().find((exam) => exam.name === name);
   }
 
-  getExams(): void {
+  getExams() {
     this.http.get('http://localhost:5000/exams/get').subscribe((exams: any) => {
       this.exams = exams;
     });
+
+    return this.exams;
   }
 
   submitExam(form: any) {

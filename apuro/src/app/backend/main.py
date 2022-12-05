@@ -1,10 +1,12 @@
 import pandas as pd
 from flask import Flask, jsonify, Response, request
+from flask_cors import CORS
 import db
 import json
 
 
 app = Flask(__name__)
+CORS(app)
 
 #Funcionalidades
 
@@ -22,7 +24,6 @@ def register():
         usertype = request.form['usertype']
 
         usernames = [*db.mongo('login').distinct("username")]
-        print(usernames)
 
         user = {"username": username,
                 "password": password, 
@@ -85,24 +86,33 @@ def exam_create():
         exam_subject = content['exam_subject']
         exam_start = content['exam_start']
         exam_end = content['exam_end']
-        exam_questions = content['exam_questions']        
+        exam_questions = content['exam_questions']
 
-        exam = {"exam_name": exam_name,
-                "exam_subject": exam_subject,
-                "exam_start": exam_start,
-                "exam_end": exam_end,
-                "exam_questions": exam_questions}
-                # "exam_responses": exam_responses}
+        exams = [*db.mongo('exams').distinct("name")]
 
-        print(exam)
-        db.mongo("exams").insert_one(exam)
+        exam = {"name": exam_name,
+                "subjectCode": exam_subject,
+                "startDateTime": exam_start,
+                "endDateTime": exam_end,
+                "questions": exam_questions}
 
+        if exam_name not in exams:
+            db.mongo("exams").insert_one(exam)
+
+            return Response(
+                response=json.dumps(
+                    {"message": "Exame cadastrado com sucesso!",
+                    "exam_name": exam_name}),
+                status=200,
+                mimetype='application/json')
+            
         return Response(
-            response=json.dumps(
-                {"message": "Exame cadastrado com sucesso!",
-                "exam_name": exam_name}),
-            status=200,
-            mimetype='application/json')
+                response=json.dumps(
+                    {"message": "Exame já existente!",
+                    "username": exam_name,
+                    "login": False}),
+                status=400,
+                mimetype='application/json')
 
     except Exception as ex:
         print(ex)
@@ -116,6 +126,61 @@ def exam_get():
         exam = json.dumps(exam)
 
         return exam
+
+    except Exception as ex:
+        print(ex)
+
+
+@app.route('/exams/answer', methods=['POST'])
+def exam_answer():
+
+    try:
+        content = request.json
+        exam_name = content['examName']
+        exam_username = content['username']
+        exam_answers = content['answers']     
+
+        exam = {"examName": exam_name,
+                "username": exam_username,
+                "answers": exam_answers}
+
+        db.mongo("answers").insert_one(exam)
+
+        return Response(
+            response=json.dumps(
+                {"message": "Respostas cadastradas com sucesso!",
+                "exam_name": exam_name}),
+            status=200,
+            mimetype='application/json')
+
+    except Exception as ex:
+        print(ex)
+
+@app.route('/exams/correct', methods=['POST'])
+def exam_correct():
+
+    try:
+        content = request.json
+        exam_name = content['examName']
+        exam_username = content['username']
+
+        questions = list(db.mongo("exams").find({"name": exam_name}, {"_id": 0, "questions": 1}))
+
+        answers = list(db.mongo("answers").find({"examName": exam_name, "username": exam_username}, {"_id": 0, "answers": 1}))
+
+        counter = 0
+
+        for id, question in enumerate(questions[0]["questions"]):
+            if question["correct_alternative_number"] == answers[0]["answers"][id]["selectedAlternativeId"]:
+                counter += 1
+
+        result = f"{counter}/{len(questions[0]['questions'])}"
+                
+        results = {"examName": exam_name,
+                "username": exam_username,
+                "result": result}
+
+        return results
 
     except Exception as ex:
         print(ex)

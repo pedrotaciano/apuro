@@ -9,13 +9,12 @@ import { Exam } from 'src/app/model/exam';
   styleUrls: ['./active-exams.component.scss'],
 })
 export class ActiveExamsComponent implements OnInit {
-  exams: Exam[] = [];
+  exams!: Exam[];
 
   constructor(public router: Router, private examService: ExamService) {}
 
   getStartedExams() {
     this.exams = this.examService.exams;
-    this.exams = this.exams.filter((exam) => exam.status === '1');
   }
 
   getRemainingExamTimeInMilliseconds(exam: any): string {

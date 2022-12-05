@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ExamService } from 'src/app/exam.service';
 import { UserService } from 'src/app/user.service';
-import { Exam, QuestionResponse } from 'src/app/model/exam';
+import { Exam, Answers } from 'src/app/model/exam';
 
 @Component({
   selector: 'app-exam',
@@ -11,16 +11,36 @@ import { Exam, QuestionResponse } from 'src/app/model/exam';
   styleUrls: ['./exam.component.scss'],
 })
 export class ExamComponent implements OnInit {
-  id!: any;
-  exam!: Exam;
-  answer: QuestionResponse[] = [];
+  exam: Exam = {
+    id: 0,
+    name: 'GPTI - P1',
+    subjectCode: 'ACH2022',
+    startDateTime: '01/12/2022 20:00:00',
+    endDateTime: '01/12/2022 23:00:00',
+    status: 'In Progress',
+    questions: [
+      {
+        id: 0,
+        text: 'Qual a capital do Brasil?',
+        alternatives: [
+          { id: 0, text: 'São Paulo' },
+          { id: 1, text: 'Rio de Janeiro' },
+          { id: 2, text: 'Brasília' },
+          { id: 3, text: 'Salvador' },
+        ],
+      },
+    ],
+  };
+
+  answer: Answers[] = [];
   examForm!: FormGroup;
   index: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
     private examService: ExamService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -31,8 +51,18 @@ export class ExamComponent implements OnInit {
     });
   }
 
+  setCurrentExam() {
+    this.route.paramMap.subscribe((params: ParamMap) => {});
+
+    this.getExamByName(this.exam.id);
+  }
+
+  getExamByName(id: number) {
+    return this.exam;
+  }
+
   submitExam() {
-    let answer: QuestionResponse = {
+    let answer: Answers = {
       questionId: this.exam.questions[this.index].id,
       selectedAlternativeId: this.examForm.value.alternative,
     };
@@ -45,17 +75,7 @@ export class ExamComponent implements OnInit {
     //);
 
     //this.examService.submitExam(formData);
-  }
-
-  setCurrentExam() {
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      this.id = params.get('id');
-    });
-    this.getExamById(parseInt(this.id!));
-  }
-
-  getExamById(id: number) {
-    return this.examService.getExamById(id);
+    this.router.navigate(['result/1']);
   }
 
   getRemainingTime(exam: Exam): number {

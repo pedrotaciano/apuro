@@ -13,4 +13,8 @@ export class AppComponent {
   constructor(private _router: Router) {
     this.router = _router.url;
   }
+
+  isLoginRoute(): boolean {
+    return this.router === '/login';
+  }
 }

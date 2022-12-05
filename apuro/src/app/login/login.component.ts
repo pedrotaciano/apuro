@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
+import { ExamService } from '../exam.service';
 import { User, Credentials } from '../model/user';
 
 @Component({
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private userServices: UserService
+    private userService: UserService,
+    private examService: ExamService
   ) {}
 
   ngOnInit(): void {
@@ -49,12 +51,18 @@ export class LoginComponent implements OnInit {
 
     console.log('credentials:', credentials);
 
-    if (this.userServices.validateLogin(credentials)) {
-      this.router.navigate([role + '/home/']);
-    }
-
     this.userLoggedIn.credentials = credentials;
     this.userLoggedIn.role = role;
-    this.userServices.setUserLoggedIn(this.userLoggedIn);
+    this.userService.setUserLoggedIn(this.userLoggedIn);
+    if (this.userService.validateLogin(credentials)) {
+      this.examService.getExams();
+      setTimeout(() => {
+        this.navigateToHome(role);
+      }, 2000);
+    }
+  }
+
+  navigateToHome(role: string) {
+    this.router.navigate([role + '/home/']);
   }
 }

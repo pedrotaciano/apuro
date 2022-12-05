@@ -20,6 +20,8 @@ import { QuestionCardComponent } from './home-student/components/question-card/q
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
+import { DashboardLayoutComponent } from './_layout/dashboard-layout/dashboard-layout.component';
+import { ExamResultComponent } from './exam-result/exam-result.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { MatRadioModule } from '@angular/material/radio';
     ActiveExamsComponent,
     ExamComponent,
     QuestionCardComponent,
+    DashboardLayoutComponent,
+    ExamResultComponent,
   ],
   imports: [
     BrowserModule,

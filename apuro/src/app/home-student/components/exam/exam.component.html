@@ -6,31 +6,23 @@
       >
       <div class="flex gap-2">
         <h1 class="text-2xl font-bold">{{ exam.name }}</h1>
-        <h1 class="text-2xl font-normal text-gray-500">
-          - {{ exam.subjectCode }}
-        </h1>
+        <h1 class="text-2xl font-normal text-gray-500">- ACH2002</h1>
       </div>
     </div>
     <div class="flex text-gray-500 gap-8">
       <div class="">
         <span class="font-medium">Start:</span>
-        <span class="">
-          {{ exam.startDateTime }}
-        </span>
+        <span class=""> 01/12/2022 20:00:00 </span>
       </div>
 
       <div class="">
         <span class="font-medium">Remaining time:</span>
-        <span class="">
-          {{ getRemainingTime(exam) }}
-        </span>
+        <span class=""> 3h </span>
       </div>
 
       <div class="">
         <span class="font-medium">Questions:</span>
-        <span class="">
-          {{ exam.questions.length }}
-        </span>
+        <span class=""> 1 </span>
       </div>
     </div>
 
@@ -66,7 +58,9 @@
         </div>
       </form>
 
-      <button mat-flat-button color="primary" type="submit">Submit Exam</button>
+      <button mat-flat-button color="primary">
+        <a href="student/result/1">Submit Exam</a>
+      </button>
     </div>
   </div>
 </div>

@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./exam-card.component.scss'],
 })
 export class ExamCardComponent implements OnInit {
-  @Input() id!: number;
+  @Input() id!: string;
   @Input() name!: string;
   @Input() subjectCode!: string;
   @Input() startDateTime!: string;

@@ -19,7 +19,7 @@ export class HomeStudentComponent implements OnInit {
   }
 
   getNonStartedExams() {
-    this.examService.getExams();
-    this.exams = this.exams.filter((exam) => exam.status === '0');
+    this.exams = this.examService.exams;
+    // this.exams = this.exams.filter((exam) => exam.status === '0');
   }
 }

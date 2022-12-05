@@ -19,7 +19,13 @@ export interface Alternative {
   text: string;
 }
 
-export interface QuestionResponse {
+export interface ExamResponse {
+  examName: string;
+  username: string;
+  answers: Answers[];
+}
+
+export interface Answers {
   questionId: number;
   selectedAlternativeId: any;
 }

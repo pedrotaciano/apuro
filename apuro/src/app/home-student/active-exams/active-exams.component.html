@@ -3,11 +3,10 @@
   <div class="flex grid-cols-4">
     <div *ngFor="let exam of exams">
       <app-exam-card
-        [id]="exam.id"
         [subjectCode]="exam.subjectCode"
         [name]="exam.name"
         [ctaText]="getRemainingExamTimeInMilliseconds(exam)"
-        [routerLink]="['/student/exam/' + exam.id]"
+        [routerLink]="['/student/exam/' + exam.name]"
       >
       </app-exam-card>
     </div>
